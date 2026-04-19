@@ -1,7 +1,7 @@
 {
   "version": 2,
   "buildCommand": "NX_IGNORE_UNSUPPORTED_TS_SETUP=true npx nx build web --configuration=production --skip-nx-cache",
-  "installCommand": "npm install",
+  "installCommand": "npm install --include=dev",
   "outputDirectory": "dist/apps/web",
   "framework": null,
   "functions": {
