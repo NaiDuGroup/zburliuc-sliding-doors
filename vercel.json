@@ -4,11 +4,13 @@
   "installCommand": "npm install --include=dev",
   "outputDirectory": "dist/apps/web",
   "framework": null,
+  "functions": {
+    "server/server.mjs": {
+      "runtime": "@vercel/node@3.0.0",
+      "maxDuration": 30
+    }
+  },
   "routes": [
-    {
-      "src": "/sitemap\\.xml",
-      "dest": "/server/server.mjs"
-    },
     {
       "src": "/robots\\.txt",
       "dest": "/browser/robots.txt"
