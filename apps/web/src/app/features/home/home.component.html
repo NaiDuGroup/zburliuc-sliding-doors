@@ -1,0 +1,108 @@
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__bg"></div>
+  <div class="hero__container container">
+    <div class="hero__content">
+      <span class="hero__tagline">{{ 'home.hero.tagline' | translate }}</span>
+      <h1 class="hero__title">{{ 'home.hero.title' | translate }}</h1>
+      <p class="hero__subtitle">{{ 'home.hero.subtitle' | translate }}</p>
+      <div class="hero__actions">
+        <a routerLink="/configurator" class="btn btn--primary btn--lg">
+          {{ 'home.hero.cta_primary' | translate }}
+        </a>
+        <a routerLink="/catalog" class="btn btn--outline-light btn--lg">
+          {{ 'home.hero.cta_secondary' | translate }}
+        </a>
+      </div>
+    </div>
+    <div class="hero__visual">
+      <div class="door-preview">
+        <div class="door-preview__rail"></div>
+        <div class="door-preview__panels">
+          <div class="door-panel door-panel--glass">
+            <div class="door-panel__section door-panel__section--glass"></div>
+            <div class="door-panel__section door-panel__section--wood"></div>
+          </div>
+          <div class="door-panel door-panel--mirror">
+            <div class="door-panel__section door-panel__section--mirror"></div>
+            <div class="door-panel__section door-panel__section--glass"></div>
+          </div>
+          <div class="door-panel door-panel--wood">
+            <div class="door-panel__section door-panel__section--wood"></div>
+            <div class="door-panel__section door-panel__section--lacobel"></div>
+          </div>
+        </div>
+        <div class="door-preview__rail door-preview__rail--bottom"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section features">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-header__title">{{ 'home.features.title' | translate }}</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="features__grid">
+      @for (feature of features; track feature.key) {
+        <div class="feature-card">
+          <div class="feature-card__icon" [class]="feature.iconClass">
+            {{ feature.icon }}
+          </div>
+          <h3 class="feature-card__title">
+            {{ 'home.features.' + feature.key + '.title' | translate }}
+          </h3>
+          <p class="feature-card__desc">
+            {{ 'home.features.' + feature.key + '.desc' | translate }}
+          </p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO PREVIEW -->
+@if (featuredItems().length > 0) {
+  <section class="section portfolio-preview">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-header__title">{{ 'catalog.title' | translate }}</h2>
+        <p class="section-header__subtitle">{{ 'catalog.subtitle' | translate }}</p>
+      </div>
+      <div class="portfolio-grid">
+        @for (item of featuredItems(); track item.id) {
+          <a [routerLink]="['/catalog', item.slug]" class="portfolio-card">
+            <div class="portfolio-card__image">
+              <img [src]="item.coverImage" [alt]="item.titleI18n['en'] || item.titleI18n['ru']"
+                   loading="lazy" />
+            </div>
+            <div class="portfolio-card__info">
+              <h3 class="portfolio-card__title">{{ item.titleI18n['ru'] }}</h3>
+              <span class="portfolio-card__link">{{ 'catalog.view' | translate }} →</span>
+            </div>
+          </a>
+        }
+      </div>
+      <div class="portfolio-preview__cta">
+        <a routerLink="/catalog" class="btn btn--secondary">
+          {{ 'catalog.title' | translate }} →
+        </a>
+      </div>
+    </div>
+  </section>
+}
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-section__inner">
+      <h2 class="cta-section__title">{{ 'home.cta.title' | translate }}</h2>
+      <p class="cta-section__subtitle">{{ 'home.cta.subtitle' | translate }}</p>
+      <a routerLink="/configurator" class="btn btn--primary btn--lg">
+        {{ 'home.cta.button' | translate }}
+      </a>
+    </div>
+  </div>
+</section>

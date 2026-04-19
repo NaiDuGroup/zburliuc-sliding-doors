@@ -1,105 +1,150 @@
-# New Nx Repository
+# ZBURLIUC FURNITURE — Sliding Doors Platform
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Full-stack platform for custom sliding doors orders. Features an interactive door configurator with live pricing, multilingual SEO, admin panel, and quote management.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+## Tech Stack
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
-## Try the full Nx platform
-🚀 If you haven't connected to Nx Cloud yet, [complete your setup here](https://cloud.nx.app/setup/connect-workspace/guide). Get faster builds with remote caching, distributed task execution, and self-healing CI. [See how your workspace can benefit](#nx-cloud).
-## Generate a library
+| Layer | Technology |
+|-------|-----------|
+| Frontend | Angular 21 + SSR (Server-Side Rendering) |
+| Backend | NestJS 11 |
+| Database | PostgreSQL + Prisma ORM |
+| i18n | ngx-translate (RU / EN / DE) |
+| Monorepo | Nx Workspace |
 
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
-```
-
-## Run tasks
-
-To build the library use:
-
-```sh
-npx nx build pkg1
-```
-
-To run any task with Nx use:
-
-```sh
-npx nx <target> <project-name>
-```
-
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Versioning and releasing
-
-To version and release the library use
+## Project Structure
 
 ```
-npx nx release
+sliding-doors-zbur/
+├── apps/
+│   ├── web/              # Angular SSR frontend
+│   │   └── src/app/
+│   │       ├── core/     # Models, services, guards
+│   │       ├── features/ # Page components
+│   │       └── shared/   # Reusable components
+│   └── api/              # NestJS REST API
+│       └── src/
+│           ├── auth/     # JWT authentication
+│           ├── materials/ # Materials CRUD
+│           ├── portfolio/ # Portfolio CRUD
+│           ├── quotes/   # Configurator + pricing
+│           └── prisma/   # Database service
+├── prisma/
+│   ├── schema.prisma     # Database schema
+│   └── seed.ts           # Sample data
+└── package.json
 ```
 
-Pass `--dry-run` to see what would happen without actually releasing the library.
+## Getting Started
 
-[Learn more about Nx release &raquo;](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Prerequisites
 
-## Keep TypeScript project references up to date
+- Node.js **20.19+** (required by Angular 21)
+- PostgreSQL (local or cloud)
 
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
+### 1. Install dependencies
 
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
-
-```sh
-npx nx sync
+```bash
+npm install
 ```
 
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
+### 2. Configure environment
 
-```sh
-npx nx sync:check
+Copy `.env` and update with your database credentials:
+
+```env
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/zburliuc_doors"
+JWT_SECRET="your-secret-key-here"
+ADMIN_EMAIL="admin@zburliuc.com"
+ADMIN_PASSWORD="your-secure-password"
+FRONTEND_URL="http://localhost:4200"
+PORT=3000
 ```
 
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
+### 3. Set up the database
 
-## Nx Cloud
+```bash
+# Generate Prisma client
+npm run db:generate
 
-Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+# Create tables (dev)
+npm run db:push
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+# Or run migrations (production)
+npm run db:migrate
 
-### Set up CI (non-Github Actions CI)
-
-**Note:** This is only required if your CI provider is not GitHub Actions.
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
+# Seed sample data
+npm run db:seed
 ```
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### 4. Start development servers
 
-## Install Nx Console
+```bash
+# Frontend (Angular SSR on port 4200)
+npm run dev:web
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+# Backend (NestJS on port 3000)
+npm run dev:api
+```
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### 5. Access the apps
 
-## Useful links
+| URL | Description |
+|-----|-------------|
+| http://localhost:4200 | Main website |
+| http://localhost:4200/configurator | Door configurator |
+| http://localhost:4200/admin | Admin panel |
+| http://localhost:3000/api/docs | Swagger API docs |
 
-Learn more:
+## Features
 
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### Public Website
+- **Home page** with hero, features, portfolio preview, and CTA
+- **Portfolio/Catalog** — gallery of completed projects with SEO
+- **Configurator** — 4-step door builder:
+  1. Enter opening dimensions (width × height in mm)
+  2. Choose number of panels and sections per panel
+  3. Select material per section (glass, mirror, wood, lacobel, etc.)
+  4. See live price breakdown and submit order request
+- **FAQ** — with structured data (FAQPage schema) for Google
+- **Contact** page
+- **Multilingual** — Russian, English, German
 
-And join the Nx community:
+### Admin Panel (`/admin`)
+- Login with JWT authentication
+- **Quotes inbox** — view all quote requests, update status
+- **Materials** — CRUD with name i18n, type, price/m², color options, image
+- **Portfolio** — CRUD with images, description, tags, publish toggle
 
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+### SEO
+- Server-Side Rendering for all public pages
+- Automatic meta tags (title, description, og:image)
+- Structured data: `Organization`, `LocalBusiness`, `FAQPage`, `Product`, `BreadcrumbList`
+- Multilingual URLs: `/ru/`, `/en/`, `/de/`
+- `robots.txt` and `/sitemap.xml` (auto-generated by API)
+- Google Analytics 4 ready
+
+## Admin Default Credentials
+
+After seeding:
+- Email: `admin@zburliuc.com`
+- Password: `admin123`
+
+**Change these in production!**
+
+## Building for Production
+
+```bash
+# Build both apps
+npm run build:all
+
+# Frontend output: dist/apps/web
+# Backend output: dist/apps/api
+```
+
+## Deployment Recommendations
+
+- **Frontend (Angular SSR)**: Vercel, Railway, or any Node.js hosting
+- **Backend (NestJS)**: Railway, Render, or VPS with Docker
+- **Database**: Neon (PostgreSQL serverless), Railway, or Supabase
+- **Images**: Cloudinary (recommended for portfolio/material images)

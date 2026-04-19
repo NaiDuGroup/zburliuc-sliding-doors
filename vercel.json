@@ -1,0 +1,37 @@
+{
+  "version": 2,
+  "buildCommand": "npm run vercel:build",
+  "installCommand": "npm install",
+  "outputDirectory": "dist/apps/web",
+  "framework": null,
+  "functions": {
+    "dist/apps/web/server/server.mjs": {
+      "runtime": "@vercel/node@5",
+      "maxDuration": 30
+    }
+  },
+  "routes": [
+    {
+      "src": "/sitemap\\.xml",
+      "dest": "/dist/apps/web/server/server.mjs"
+    },
+    {
+      "src": "/robots\\.txt",
+      "dest": "/dist/apps/web/browser/robots.txt"
+    },
+    {
+      "src": "/(.*\\.(js|mjs|css|ico|png|jpg|jpeg|svg|webp|woff|woff2|ttf|eot|map)$)",
+      "headers": { "Cache-Control": "public, max-age=31536000, immutable" },
+      "dest": "/dist/apps/web/browser/$1"
+    },
+    {
+      "src": "/assets/(.*)",
+      "headers": { "Cache-Control": "public, max-age=86400" },
+      "dest": "/dist/apps/web/browser/assets/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/dist/apps/web/server/server.mjs"
+    }
+  ]
+}

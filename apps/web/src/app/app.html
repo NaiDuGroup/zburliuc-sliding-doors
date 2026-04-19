@@ -1,0 +1,124 @@
+<nav class="navbar">
+  <div class="navbar__container">
+    <a routerLink="/" class="navbar__brand" (click)="closeMobileMenu()">
+      <span class="navbar__brand-name">ZBURLIUC</span>
+      <span class="navbar__brand-sub">FURNITURE</span>
+    </a>
+
+    <!-- Desktop nav links (inside navbar — backdrop-filter is fine here) -->
+    <div class="navbar__links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="navbar__link">
+        {{ 'nav.home' | translate }}
+      </a>
+      <a routerLink="/catalog" routerLinkActive="active" class="navbar__link">
+        {{ 'nav.catalog' | translate }}
+      </a>
+      <a routerLink="/faq" routerLinkActive="active" class="navbar__link">
+        {{ 'nav.faq' | translate }}
+      </a>
+      <a routerLink="/contact" routerLinkActive="active" class="navbar__link">
+        {{ 'nav.contact' | translate }}
+      </a>
+      <a routerLink="/configurator" class="navbar__cta">
+        {{ 'nav.configurator' | translate }}
+      </a>
+    </div>
+
+    <div class="navbar__actions">
+      <!-- Language dropdown -->
+      <div class="lang-dropdown" [class.lang-dropdown--open]="langDropdownOpen()">
+        @if (langDropdownOpen()) {
+          <div class="lang-dropdown__backdrop" (click)="closeLangDropdown()"></div>
+        }
+        <button class="lang-dropdown__trigger" (click)="toggleLangDropdown()" [attr.aria-expanded]="langDropdownOpen()">
+          {{ currentLang().toUpperCase() }}
+          <svg class="lang-dropdown__chevron" width="10" height="6" viewBox="0 0 10 6" fill="none">
+            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        @if (langDropdownOpen()) {
+          <div class="lang-dropdown__menu">
+            @for (lang of languages; track lang.code) {
+              <button
+                class="lang-dropdown__option"
+                [class.lang-dropdown__option--active]="currentLang() === lang.code"
+                (click)="selectLang(lang.code)"
+              >
+                <strong>{{ lang.label }}</strong>
+                <span style="font-weight:400;color:var(--color-text-muted);font-size:11px">{{ lang.name }}</span>
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Burger button (mobile only) -->
+      <button
+        class="navbar__burger"
+        (click)="toggleMobileMenu()"
+        [attr.aria-expanded]="mobileMenuOpen()"
+        aria-label="Menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!--
+  Mobile menu panel — MUST be outside <nav> because backdrop-filter on navbar
+  creates a new containing block for position:fixed children, giving them zero height.
+  Being a sibling of <nav> means it's positioned relative to the viewport correctly.
+-->
+@if (mobileMenuOpen()) {
+  <div class="mobile-menu-panel">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+       class="mobile-menu-panel__link" (click)="closeMobileMenu()">
+      {{ 'nav.home' | translate }}
+    </a>
+    <a routerLink="/catalog" routerLinkActive="active"
+       class="mobile-menu-panel__link" (click)="closeMobileMenu()">
+      {{ 'nav.catalog' | translate }}
+    </a>
+    <a routerLink="/faq" routerLinkActive="active"
+       class="mobile-menu-panel__link" (click)="closeMobileMenu()">
+      {{ 'nav.faq' | translate }}
+    </a>
+    <a routerLink="/contact" routerLinkActive="active"
+       class="mobile-menu-panel__link" (click)="closeMobileMenu()">
+      {{ 'nav.contact' | translate }}
+    </a>
+    <a routerLink="/configurator" class="mobile-menu-panel__cta" (click)="closeMobileMenu()">
+      {{ 'nav.configurator' | translate }}
+    </a>
+  </div>
+}
+
+<!-- Dark overlay behind mobile menu -->
+@if (mobileMenuOpen()) {
+  <div class="mobile-menu-overlay" (click)="closeMobileMenu()"></div>
+}
+
+<main class="main-content">
+  <router-outlet />
+</main>
+
+<footer class="footer">
+  <div class="footer__container">
+    <div class="footer__brand">
+      <span class="footer__brand-name">ZBURLIUC FURNITURE</span>
+      <p class="footer__tagline">{{ 'home.hero.tagline' | translate }}</p>
+    </div>
+    <div class="footer__links">
+      <a routerLink="/catalog">{{ 'nav.catalog' | translate }}</a>
+      <a routerLink="/configurator">{{ 'nav.configurator' | translate }}</a>
+      <a routerLink="/faq">{{ 'nav.faq' | translate }}</a>
+      <a routerLink="/contact">{{ 'nav.contact' | translate }}</a>
+    </div>
+    <div class="footer__copy">
+      &copy; {{ 2025 }} ZBURLIUC FURNITURE. All rights reserved.
+    </div>
+  </div>
+</footer>

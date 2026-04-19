@@ -1,0 +1,201 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "catalog": "Portfolio",
+    "configurator": "Konfigurator",
+    "contact": "Kontakt",
+    "faq": "FAQ",
+    "admin": "Admin"
+  },
+  "home": {
+    "hero": {
+      "tagline": "Design Studio",
+      "title": "Maßgefertigte Schiebetüren",
+      "subtitle": "Messen Sie Ihre Öffnung, wählen Sie Ihre Oberfläche — wir machen den Rest. Premium-Qualität.",
+      "cta_primary": "Konfigurieren",
+      "cta_secondary": "Portfolio ansehen"
+    },
+    "features": {
+      "title": "Warum ZBURLIUC FURNITURE?",
+      "instant_price": {
+        "title": "Sofortpreis",
+        "desc": "Sehen Sie den genauen Preis während der Konfiguration."
+      },
+      "custom_fit": {
+        "title": "Perfekte Passform",
+        "desc": "Millimetergenaue Fertigung nach Ihren Maßen."
+      },
+      "premium_materials": {
+        "title": "Premium-Materialien",
+        "desc": "Glas, Spiegel, Lacobel, Massivholz. Viele Farben und Oberflächen."
+      },
+      "fast_delivery": {
+        "title": "Schnelle Lieferung",
+        "desc": "Produktion in 10–14 Werktagen."
+      }
+    },
+    "cta": {
+      "title": "Bereit, Ihren Raum zu verwandeln?",
+      "subtitle": "Nutzen Sie unseren Konfigurator für Ihr perfektes Schiebetürsystem.",
+      "button": "Konfigurator öffnen"
+    }
+  },
+  "configurator": {
+    "title": "Türen-Konfigurator",
+    "subtitle": "Gestalten Sie Ihr maßgefertigtes Schiebetürsystem",
+    "steps": {
+      "dimensions": "Maße",
+      "panels": "Türflügel",
+      "materials": "Materialien",
+      "summary": "Zusammenfassung"
+    },
+    "dimensions": {
+      "title": "Öffnungsmaße",
+      "width": "Öffnungsbreite",
+      "height": "Öffnungshöhe",
+      "unit_mm": "mm",
+      "unit_cm": "cm",
+      "hint_width": "Gesamtbreite der Öffnung messen",
+      "hint_height": "Höhe vom Boden bis zur Decke messen"
+    },
+    "panels": {
+      "title": "Türflügel",
+      "count": "Anzahl der Flügel",
+      "sections": "Segmente pro Flügel",
+      "panel": "Flügel",
+      "section": "Segment"
+    },
+    "materials": {
+      "title": "Materialien wählen",
+      "for_panel": "Flügel {{n}}",
+      "for_section": "Segment {{n}}",
+      "select_material": "Material auswählen",
+      "select_color": "Farbe auswählen",
+      "price_per_m2": "pro m²"
+    },
+    "summary": {
+      "title": "Ihre Konfiguration",
+      "opening": "Öffnung",
+      "panels": "Flügel",
+      "price_breakdown": "Preisaufschlüsselung",
+      "materials_cost": "Materialien",
+      "hardware_cost": "Beschläge & Schienen",
+      "frame_cost": "Rahmen",
+      "total": "Gesamt",
+      "order_form": "Diese Konfiguration anfragen",
+      "your_name": "Ihr Name",
+      "your_phone": "Telefonnummer",
+      "your_email": "E-Mail (optional)",
+      "comment": "Kommentar (optional)",
+      "submit": "Anfrage senden",
+      "submitting": "Wird gesendet...",
+      "success_title": "Anfrage erhalten!",
+      "success_msg": "Wir werden uns innerhalb von 24 Stunden bei Ihnen melden.",
+      "new_config": "Neue Konfiguration starten"
+    },
+    "preview": {
+      "title": "Vorschau",
+      "door": "Tür",
+      "section": "Segment"
+    }
+  },
+  "catalog": {
+    "title": "Unser Portfolio",
+    "subtitle": "Unsere realisierten Schiebetür-Projekte",
+    "view": "Projekt ansehen",
+    "empty": "Noch keine Projekte"
+  },
+  "contact": {
+    "title": "Kontakt",
+    "subtitle": "Haben Sie Fragen? Wir helfen gerne.",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "address": "Adresse",
+    "schedule": "Öffnungszeiten",
+    "schedule_val": "Mo–Fr: 9:00–18:00"
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen",
+    "items": [
+      {
+        "q": "Welche Mindest- und Höchstgröße ist möglich?",
+        "a": "Wir fertigen Schiebetüren von 600 mm bis 6000 mm Breite und 1800 mm bis 3000 mm Höhe."
+      },
+      {
+        "q": "Wie lange dauert die Produktion?",
+        "a": "Die Standardproduktionszeit beträgt 10–14 Werktage nach Auftragsbestätigung und Anzahlungszahlung."
+      },
+      {
+        "q": "Bieten Sie Montage an?",
+        "a": "Ja, wir bieten professionelle Montage in Moldawien an. Kontaktieren Sie uns für Details."
+      },
+      {
+        "q": "Ist der Konfigurator-Preis ein endgültiges Angebot?",
+        "a": "Der Konfigurator-Preis ist eine genaue Schätzung. Der endgültige Preis wird nach Überprüfung Ihrer Bestellung bestätigt."
+      },
+      {
+        "q": "Welche Materialien sind verfügbar?",
+        "a": "Wir arbeiten mit Sicherheitsglas, Lacobel-Glas, Spiegeln, Massivholzpaneelen, MDF mit Furnier und Aluminiumprofilen."
+      }
+    ]
+  },
+  "admin": {
+    "login": {
+      "title": "Admin-Login",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "submit": "Anmelden",
+      "error": "Ungültige Anmeldedaten"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "materials": "Materialien",
+      "portfolio": "Portfolio",
+      "quotes": "Anfragen",
+      "logout": "Abmelden"
+    },
+    "materials": {
+      "title": "Materialien",
+      "add": "Material hinzufügen",
+      "name": "Name",
+      "type": "Typ",
+      "price": "Preis / m²",
+      "active": "Aktiv",
+      "actions": "Aktionen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "confirm_delete": "Möchten Sie dieses Material wirklich löschen?"
+    },
+    "portfolio": {
+      "title": "Portfolio",
+      "add": "Element hinzufügen",
+      "published": "Veröffentlicht",
+      "draft": "Entwurf"
+    },
+    "quotes": {
+      "title": "Anfragen",
+      "client": "Kunde",
+      "phone": "Telefon",
+      "total": "Gesamtpreis",
+      "status": "Status",
+      "date": "Datum",
+      "view": "Ansehen",
+      "statuses": {
+        "NEW": "Neu",
+        "IN_PROGRESS": "In Bearbeitung",
+        "COMPLETED": "Abgeschlossen",
+        "CANCELLED": "Storniert"
+      }
+    }
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Ein Fehler ist aufgetreten",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "back": "Zurück",
+    "next": "Weiter",
+    "close": "Schließen",
+    "currency": "€"
+  }
+}

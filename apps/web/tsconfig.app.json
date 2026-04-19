@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "types": ["node"],
+    "lib": ["es2022", "dom", "dom.iterable"],
+    "useDefineForClassFields": false,
+    "composite": false,
+    "emitDeclarationOnly": false,
+    "declarationMap": false,
+    "paths": {
+      "../../environments/environment": ["./src/environments/environment.ts"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"]
+}

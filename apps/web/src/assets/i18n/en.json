@@ -1,0 +1,201 @@
+{
+  "nav": {
+    "home": "Home",
+    "catalog": "Portfolio",
+    "configurator": "Configure Door",
+    "contact": "Contact",
+    "faq": "FAQ",
+    "admin": "Admin"
+  },
+  "home": {
+    "hero": {
+      "tagline": "Design Studio",
+      "title": "Custom Sliding Doors for Your Space",
+      "subtitle": "Measure your opening, choose your finish — we build the rest. Premium quality, delivered to Moldova and beyond.",
+      "cta_primary": "Start Configuring",
+      "cta_secondary": "View Portfolio"
+    },
+    "features": {
+      "title": "Why ZBURLIUC FURNITURE?",
+      "instant_price": {
+        "title": "Instant Price",
+        "desc": "See the exact cost as you configure. No hidden fees, no waiting for a quote."
+      },
+      "custom_fit": {
+        "title": "Perfect Fit",
+        "desc": "Enter your exact opening dimensions — we manufacture to millimeter precision."
+      },
+      "premium_materials": {
+        "title": "Premium Materials",
+        "desc": "Glass, mirrors, lacobel, solid wood. Dozens of finishes and colors."
+      },
+      "fast_delivery": {
+        "title": "Fast Delivery",
+        "desc": "Production in 10–14 working days. Delivery and installation available."
+      }
+    },
+    "cta": {
+      "title": "Ready to Transform Your Space?",
+      "subtitle": "Use our configurator to design your perfect sliding door system in minutes.",
+      "button": "Open Configurator"
+    }
+  },
+  "configurator": {
+    "title": "Door Configurator",
+    "subtitle": "Design your custom sliding door system",
+    "steps": {
+      "dimensions": "Dimensions",
+      "panels": "Panels",
+      "materials": "Materials",
+      "summary": "Summary & Order"
+    },
+    "dimensions": {
+      "title": "Opening Dimensions",
+      "width": "Opening Width",
+      "height": "Opening Height",
+      "unit_mm": "mm",
+      "unit_cm": "cm",
+      "hint_width": "Measure the total width of the opening",
+      "hint_height": "Measure the height from floor to ceiling"
+    },
+    "panels": {
+      "title": "Door Panels",
+      "count": "Number of panels",
+      "sections": "Sections per panel",
+      "panel": "Panel",
+      "section": "Section"
+    },
+    "materials": {
+      "title": "Choose Materials",
+      "for_panel": "Panel {{n}}",
+      "for_section": "Section {{n}}",
+      "select_material": "Select material",
+      "select_color": "Select color",
+      "price_per_m2": "per m²"
+    },
+    "summary": {
+      "title": "Your Configuration",
+      "opening": "Opening",
+      "panels": "Panels",
+      "price_breakdown": "Price Breakdown",
+      "materials_cost": "Materials",
+      "hardware_cost": "Hardware & Rails",
+      "frame_cost": "Frame",
+      "total": "Total",
+      "order_form": "Request This Configuration",
+      "your_name": "Your Name",
+      "your_phone": "Phone Number",
+      "your_email": "Email (optional)",
+      "comment": "Comment (optional)",
+      "submit": "Send Request",
+      "submitting": "Sending...",
+      "success_title": "Request Received!",
+      "success_msg": "We will contact you within 24 hours to discuss your order.",
+      "new_config": "Start New Configuration"
+    },
+    "preview": {
+      "title": "Preview",
+      "door": "Door",
+      "section": "Section"
+    }
+  },
+  "catalog": {
+    "title": "Our Portfolio",
+    "subtitle": "Browse our completed sliding door installations",
+    "view": "View Project",
+    "empty": "No projects yet"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Have questions? We are happy to help.",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "schedule": "Working Hours",
+    "schedule_val": "Mon–Fri: 9:00–18:00"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "items": [
+      {
+        "q": "What is the minimum and maximum door size?",
+        "a": "We manufacture sliding doors from 600mm to 6000mm wide and from 1800mm to 3000mm high."
+      },
+      {
+        "q": "How long does production take?",
+        "a": "Standard production time is 10–14 working days after order confirmation and deposit payment."
+      },
+      {
+        "q": "Do you offer installation?",
+        "a": "Yes, we offer professional installation in Moldova. Please contact us for details."
+      },
+      {
+        "q": "Can I use the configurator price as a final quote?",
+        "a": "The configurator price is a close estimate. A final quote is confirmed after our team reviews your order details."
+      },
+      {
+        "q": "What materials are available?",
+        "a": "We work with tempered glass, lacobel glass, mirrors, solid wood panels, MDF with veneer, and aluminum profiles."
+      }
+    ]
+  },
+  "admin": {
+    "login": {
+      "title": "Admin Login",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Login",
+      "error": "Invalid credentials"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "materials": "Materials",
+      "portfolio": "Portfolio",
+      "quotes": "Quotes",
+      "logout": "Logout"
+    },
+    "materials": {
+      "title": "Materials",
+      "add": "Add Material",
+      "name": "Name",
+      "type": "Type",
+      "price": "Price / m²",
+      "active": "Active",
+      "actions": "Actions",
+      "edit": "Edit",
+      "delete": "Delete",
+      "confirm_delete": "Are you sure you want to delete this material?"
+    },
+    "portfolio": {
+      "title": "Portfolio",
+      "add": "Add Item",
+      "published": "Published",
+      "draft": "Draft"
+    },
+    "quotes": {
+      "title": "Quote Requests",
+      "client": "Client",
+      "phone": "Phone",
+      "total": "Total Price",
+      "status": "Status",
+      "date": "Date",
+      "view": "View",
+      "statuses": {
+        "NEW": "New",
+        "IN_PROGRESS": "In Progress",
+        "COMPLETED": "Completed",
+        "CANCELLED": "Cancelled"
+      }
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back",
+    "next": "Next",
+    "close": "Close",
+    "currency": "€"
+  }
+}

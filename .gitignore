@@ -24,6 +24,15 @@ node_modules
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# environment secrets — NEVER commit these
+.env
+.env.local
+.env.production
+.env.*
+
+# mobile dev helper
+mobile-proxy.js
+
 # misc
 /.sass-cache
 /connect.lock
@@ -46,3 +55,8 @@ Thumbs.db
 .claude/worktrees
 .claude/settings.local.json
 .nx/polygraph
+.angular
+
+__screenshots__/
+
+test-output

@@ -1,0 +1,379 @@
+<div class="configurator">
+
+  <!-- Compact top bar -->
+  <div class="configurator__topbar">
+    <div class="container configurator__topbar-inner">
+      <span class="configurator__topbar-title">{{ 'configurator.title' | translate }}</span>
+      <span class="configurator__topbar-step">{{ currentStep() }} / 4</span>
+    </div>
+  </div>
+
+  <!-- Progress stepper (sticky) -->
+  <div class="configurator__progress">
+    <div class="container">
+      <div class="steps">
+        @for (step of [1, 2, 3, 4]; track step) {
+          <button
+            class="step"
+            [class.step--active]="currentStep() === step"
+            [class.step--done]="currentStep() > step"
+            (click)="goToStep(step)"
+          >
+            <div class="step__circle">
+              @if (currentStep() > step) { ✓ } @else { {{ step }} }
+            </div>
+            <span class="step__label">
+              {{ 'configurator.steps.' + (['dimensions','panels','materials','summary'][step - 1]) | translate }}
+            </span>
+          </button>
+          @if (step < 4) {
+            <div class="step__connector" [class.step__connector--done]="currentStep() > step"></div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Two-column layout -->
+  <div class="configurator__main container">
+
+    <!-- ── LEFT: Step content ── -->
+    <div class="configurator__steps">
+
+      <!-- STEP 1: Dimensions -->
+      @if (currentStep() === 1) {
+        <div class="step-content">
+          <h2 class="step-content__title">{{ 'configurator.dimensions.title' | translate }}</h2>
+
+          <div class="dimensions-form">
+            <div class="dimension-field">
+              <label class="form-label">{{ 'configurator.dimensions.width' | translate }}</label>
+              <div class="dim-wrapper">
+                <input
+                  type="number"
+                  class="form-input dim-input"
+                  [ngModel]="openingWidth()"
+                  (ngModelChange)="openingWidth.set(+$event)"
+                  min="300" max="10000"
+                />
+                <span class="dim-unit">мм</span>
+              </div>
+              @if (widthError()) {
+                <p class="field-error">⚠ {{ widthError() }}</p>
+              } @else {
+                <p class="field-hint">{{ 'configurator.dimensions.hint_width' | translate }}</p>
+              }
+            </div>
+
+            <div class="dimension-field">
+              <label class="form-label">{{ 'configurator.dimensions.height' | translate }}</label>
+              <div class="dim-wrapper">
+                <input
+                  type="number"
+                  class="form-input dim-input"
+                  [ngModel]="openingHeight()"
+                  (ngModelChange)="openingHeight.set(+$event)"
+                  min="500" max="5000"
+                />
+                <span class="dim-unit">мм</span>
+              </div>
+              @if (heightError()) {
+                <p class="field-error">⚠ {{ heightError() }}</p>
+              } @else {
+                <p class="field-hint">{{ 'configurator.dimensions.hint_height' | translate }}</p>
+              }
+            </div>
+          </div>
+
+          <!-- Desktop inline actions -->
+          <div class="step-actions">
+            <span></span>
+            <button class="btn btn--primary" (click)="nextStep()" [disabled]="!canProceedStep1()">
+              {{ 'common.next' | translate }} →
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- STEP 2: Panels -->
+      @if (currentStep() === 2) {
+        <div class="step-content">
+          <h2 class="step-content__title">{{ 'configurator.panels.title' | translate }}</h2>
+
+          <div class="panel-form">
+            <div class="panel-form__group">
+              <label class="form-label">{{ 'configurator.panels.count' | translate }}</label>
+              <div class="number-selector">
+                @for (n of [1, 2, 3, 4, 5, 6]; track n) {
+                  <button class="num-btn" [class.num-btn--active]="panelCount() === n" (click)="panelCount.set(n)">{{ n }}</button>
+                }
+              </div>
+              <p class="panel-form__note">≈ {{ getPanelWidthMm() }} мм на полотно</p>
+            </div>
+
+            <div class="panel-form__group">
+              <label class="form-label">{{ 'configurator.panels.sections' | translate }}</label>
+              <div class="number-selector">
+                @for (n of [1, 2, 3, 4, 5]; track n) {
+                  <button class="num-btn" [class.num-btn--active]="sectionsPerPanel() === n" (click)="sectionsPerPanel.set(n)">{{ n }}</button>
+                }
+              </div>
+              @if (sectionsPerPanel() > 1) {
+                <p class="panel-form__note">{{ sectionsPerPanel() }} секции в каждом полотне — видно в превью →</p>
+              }
+            </div>
+          </div>
+
+          <div class="step-actions">
+            <button class="btn btn--ghost" (click)="prevStep()">← {{ 'common.back' | translate }}</button>
+            <button class="btn btn--primary" (click)="nextStep()">{{ 'common.next' | translate }} →</button>
+          </div>
+        </div>
+      }
+
+      <!-- STEP 3: Materials -->
+      @if (currentStep() === 3) {
+        <div class="step-content step-content--wide">
+          <h2 class="step-content__title">{{ 'configurator.materials.title' | translate }}</h2>
+
+          @if (materials().length === 0) {
+            <div class="loading-center"><div class="spinner"></div></div>
+          } @else {
+            @if (!canProceedStep3()) {
+              <p class="step-hint">Выберите материал для каждой секции каждого полотна</p>
+            }
+            <div class="panels-list">
+              @for (pi of panelNumbers(); track pi) {
+                <div class="panel-block">
+                  <div class="panel-block__header">
+                    <span class="panel-block__num">Полотно {{ pi + 1 }}</span>
+                    @if (pi > 0 && hasMaterialsInPanel(0)) {
+                      <button class="btn-link" (click)="copyPanelFrom(0, pi)">← Скопировать полотно 1</button>
+                    }
+                  </div>
+
+                  @for (si of sectionNumbers(); track si) {
+                    <div class="section-block">
+                      <div class="section-block__header">
+                        <span class="section-block__label">Секция {{ si + 1 }}</span>
+                        @if (getSectionMaterialId(pi, si)) {
+                          <button class="btn-link btn-link--accent"
+                            (click)="applyToAllPanels(si, getSectionMaterialId(pi, si), getSectionColorValue(pi, si))">
+                            Ко всем дверям →
+                          </button>
+                        }
+                      </div>
+
+                      <div class="material-grid">
+                        @for (mat of materials(); track mat.id) {
+                          <button class="material-card"
+                            [class.material-card--selected]="getSectionMaterialId(pi, si) === mat.id"
+                            (click)="setMaterial(pi, si, mat.id)">
+                            <div class="material-card__thumb" [ngStyle]="getSectionCardThumbStyle(pi, si, mat)"></div>
+                            <div class="material-card__info">
+                              <span class="material-card__name">{{ mat.nameI18n['ru'] || mat.nameI18n['en'] }}</span>
+                              <div class="material-card__meta">
+                                <span class="material-card__badge">{{ mat.type }}</span>
+                                <span class="material-card__price">{{ mat.pricePerM2 }}€</span>
+                              </div>
+                            </div>
+                            @if (getSectionMaterialId(pi, si) === mat.id) {
+                              <div class="material-card__check">✓</div>
+                            }
+                          </button>
+                        }
+                      </div>
+
+                      @if (getMaterialColorOptions(getSectionMaterialId(pi, si)).length > 0) {
+                        <div class="color-row">
+                          <span class="color-row__label">Цвет:</span>
+                          <div class="color-picker">
+                            @for (color of getMaterialColorOptions(getSectionMaterialId(pi, si)); track color.value) {
+                              <button class="color-swatch"
+                                [class.color-swatch--active]="getSectionColorValue(pi, si) === color.value"
+                                [class.color-swatch--has-image]="!!color.imageUrl"
+                                [ngStyle]="getColorSwatchStyle(color)"
+                                [title]="color.labelI18n['ru'] || color.labelI18n['en']"
+                                (click)="setColor(pi, si, color.value)"></button>
+                            }
+                          </div>
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          }
+
+          <div class="step-actions">
+            <button class="btn btn--ghost" (click)="prevStep()">← {{ 'common.back' | translate }}</button>
+            <button class="btn btn--primary" (click)="nextStep()" [disabled]="!canProceedStep3()">
+              {{ 'common.next' | translate }} →
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- STEP 4: Summary & Order -->
+      @if (currentStep() === 4) {
+        <div class="step-content step-content--wide">
+          @if (submitted()) {
+            <div class="success-state">
+              <div class="success-state__icon">✓</div>
+              <h2 class="success-state__title">{{ 'configurator.summary.success_title' | translate }}</h2>
+              <p class="success-state__msg">{{ 'configurator.summary.success_msg' | translate }}</p>
+              <button class="btn btn--primary" (click)="resetConfigurator()">{{ 'configurator.summary.new_config' | translate }}</button>
+            </div>
+          } @else {
+            <h2 class="step-content__title">{{ 'configurator.summary.title' | translate }}</h2>
+            <div class="summary-layout">
+              <div class="price-card">
+                <h3 class="price-card__title">{{ 'configurator.summary.price_breakdown' | translate }}</h3>
+                @if (isCalculating()) {
+                  <div class="price-card__loading"><div class="spinner"></div></div>
+                } @else if (priceBreakdown()) {
+                  <div class="price-rows">
+                    <div class="price-row">
+                      <span>{{ 'configurator.summary.materials_cost' | translate }}</span>
+                      <span>{{ priceBreakdown()!.materialsPrice | number:'1.0-0' }} {{ priceBreakdown()!.currency }}</span>
+                    </div>
+                    <div class="price-row">
+                      <span>{{ 'configurator.summary.hardware_cost' | translate }}</span>
+                      <span>{{ priceBreakdown()!.hardwarePrice | number:'1.0-0' }} {{ priceBreakdown()!.currency }}</span>
+                    </div>
+                    <div class="price-row">
+                      <span>{{ 'configurator.summary.frame_cost' | translate }}</span>
+                      <span>{{ priceBreakdown()!.framePrice | number:'1.0-0' }} {{ priceBreakdown()!.currency }}</span>
+                    </div>
+                    <div class="price-row price-row--total">
+                      <span>{{ 'configurator.summary.total' | translate }}</span>
+                      <span class="price-total">{{ priceBreakdown()!.totalPrice | number:'1.0-0' }} {{ priceBreakdown()!.currency }}</span>
+                    </div>
+                  </div>
+                }
+                <div class="config-summary">
+                  <div class="config-summary__item">
+                    <span>{{ 'configurator.summary.opening' | translate }}</span>
+                    <strong>{{ openingWidth() }} × {{ openingHeight() }} мм</strong>
+                  </div>
+                  <div class="config-summary__item">
+                    <span>{{ 'configurator.summary.panels' | translate }}</span>
+                    <strong>{{ panelCount() }} × {{ sectionsPerPanel() }}</strong>
+                  </div>
+                </div>
+              </div>
+
+              <div class="order-form">
+                <h3 class="order-form__title">{{ 'configurator.summary.order_form' | translate }}</h3>
+                <div class="form-stack">
+                  <div class="form-group">
+                    <label class="form-label">{{ 'configurator.summary.your_name' | translate }} *</label>
+                    <input type="text" class="form-input" [ngModel]="clientName()" (ngModelChange)="clientName.set($event)" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">{{ 'configurator.summary.your_phone' | translate }} *</label>
+                    <input type="tel" class="form-input" [ngModel]="clientPhone()" (ngModelChange)="clientPhone.set($event)" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">{{ 'configurator.summary.your_email' | translate }}</label>
+                    <input type="email" class="form-input" [ngModel]="clientEmail()" (ngModelChange)="clientEmail.set($event)" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">{{ 'configurator.summary.comment' | translate }}</label>
+                    <textarea class="form-textarea" [ngModel]="clientComment()" (ngModelChange)="clientComment.set($event)"></textarea>
+                  </div>
+                  @if (submitError()) { <div class="alert alert--error">{{ submitError() }}</div> }
+                  <button class="btn btn--primary btn--full" (click)="submitQuote()"
+                    [disabled]="isSubmitting() || !clientName() || !clientPhone()">
+                    @if (isSubmitting()) {
+                      <div class="spinner spinner--sm"></div> {{ 'configurator.summary.submitting' | translate }}
+                    } @else {
+                      {{ 'configurator.summary.submit' | translate }}
+                    }
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-actions">
+              <button class="btn btn--ghost" (click)="prevStep()">← {{ 'common.back' | translate }}</button>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- ── RIGHT: Sticky door preview ── -->
+    <aside class="configurator__sidebar">
+      <div class="door-card">
+        <div class="door-card__label">{{ 'configurator.preview.title' | translate }}</div>
+
+        <div class="door-live" [style.aspect-ratio]="doorAspectRatio()">
+          <div class="door-live__rail"></div>
+          <div class="door-live__panels">
+            @for (pi of previewPanels(); track pi) {
+              <div class="door-live__panel" [class.door-live__panel--solo]="previewPanels().length === 1">
+                @for (si of previewSections(); track si) {
+                  <div class="door-live__section" [ngStyle]="getDoorSectionStyle(pi, si)"></div>
+                }
+              </div>
+            }
+          </div>
+          <div class="door-live__rail"></div>
+        </div>
+
+        <div class="door-card__meta">
+          <span>{{ openingWidth() }} × {{ openingHeight() }} мм</span>
+          @if (currentStep() >= 2) {
+            <span class="door-card__meta-sep">·</span>
+            <span>{{ panelCount() }} пол.</span>
+          }
+          @if (currentStep() >= 3 && sectionsPerPanel() > 1) {
+            <span class="door-card__meta-sep">·</span>
+            <span>{{ sectionsPerPanel() }} сек.</span>
+          }
+        </div>
+
+        @if (isCalculating()) {
+          <div class="door-card__price door-card__price--loading">
+            <div class="spinner spinner--sm"></div><span>Считаем...</span>
+          </div>
+        } @else if (priceBreakdown()) {
+          <div class="door-card__price">
+            <span class="door-card__price-label">{{ 'configurator.summary.total' | translate }}</span>
+            <strong class="door-card__price-value">
+              {{ priceBreakdown()!.totalPrice | number:'1.0-0' }} {{ priceBreakdown()!.currency }}
+            </strong>
+          </div>
+        }
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- ── MOBILE ONLY: sticky bottom nav bar ── -->
+  <div class="mobile-nav">
+    @if (currentStep() > 1) {
+      <button class="btn btn--ghost mobile-nav__back" (click)="prevStep()">← {{ 'common.back' | translate }}</button>
+    } @else {
+      <span></span>
+    }
+
+    @if (currentStep() < 4) {
+      <div class="mobile-nav__next-wrap">
+        @if (currentStep() === 1 && !canProceedStep1()) {
+          <p class="mobile-nav__hint">Введите корректные размеры</p>
+        }
+        @if (currentStep() === 3 && !canProceedStep3()) {
+          <p class="mobile-nav__hint">Выберите материал для каждой секции</p>
+        }
+        <button class="btn btn--primary mobile-nav__next" (click)="nextStep()"
+          [disabled]="(currentStep() === 1 && !canProceedStep1()) || (currentStep() === 3 && !canProceedStep3())">
+          {{ 'common.next' | translate }} →
+        </button>
+      </div>
+    }
+  </div>
+
+</div>
