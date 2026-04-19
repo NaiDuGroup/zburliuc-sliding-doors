@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "npx prisma generate && NX_IGNORE_UNSUPPORTED_TS_SETUP=true npx nx build web --configuration=production --skip-nx-cache",
+  "buildCommand": "NX_IGNORE_UNSUPPORTED_TS_SETUP=true npx nx build web --configuration=production --skip-nx-cache",
   "installCommand": "npm install",
   "outputDirectory": "dist/apps/web",
   "framework": null,
